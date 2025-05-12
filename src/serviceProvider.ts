@@ -1,3 +1,4 @@
+import { DI_PARAM_TYPES } from './decorators.js';
 import type {
   IServiceProvider,
   IServiceScope,
@@ -93,7 +94,7 @@ export class ServiceProvider implements IServiceProvider {
 
     const params = paramTypes.map((_: unknown, index: number) => {
       const serviceType = Reflect.getMetadata(
-        'di:paramtypes',
+        DI_PARAM_TYPES,
         ctor,
         index.toString(),
       ) as ServiceIdentifier<unknown>;
