@@ -25,7 +25,7 @@ export interface IServiceCollection {
   addScoped<T>(serviceType: ServiceIdentifier<T>, factory: ServiceFactory<T>): IServiceCollection;
   addTransient<T>(serviceType: ServiceIdentifier<T>, implementationType: Constructor<T>): IServiceCollection;
   addTransient<T>(serviceType: ServiceIdentifier<T>, factory: ServiceFactory<T>): IServiceCollection;
-  buildServiceProvider(): IServiceProvider;
+  build(): IServiceProvider;
 }
 
 export interface IServiceProvider {

@@ -19,19 +19,19 @@ export class ServiceScope implements IServiceScope {
 }
 
 export class ServiceProvider implements IServiceProvider {
-  private descriptors: Map<ServiceIdentifier<unknown>, ServiceDescriptor<unknown>>;
-  private singletonInstances: Map<ServiceIdentifier<unknown>, unknown> = new Map();
-  private scopedInstances: Map<ServiceIdentifier<unknown>, unknown> = new Map();
+  private readonly _descriptors: Map<ServiceIdentifier<unknown>, ServiceDescriptor<unknown>>;
+  private readonly _singletonInstances: Map<ServiceIdentifier<unknown>, unknown> = new Map();
+  private readonly _scopedInstances: Map<ServiceIdentifier<unknown>, unknown> = new Map();
 
   constructor(
     descriptors: Map<ServiceIdentifier<unknown>, ServiceDescriptor<unknown>>,
     parent?: ServiceProvider,
   ) {
-    this.descriptors = descriptors;
+    this._descriptors = descriptors;
 
     if (parent) {
-      parent.singletonInstances.forEach((value, key) => {
-        this.singletonInstances.set(key, value);
+      parent._singletonInstances.forEach((value, key) => {
+        this._singletonInstances.set(key, value);
       });
     }
 
@@ -43,7 +43,7 @@ export class ServiceProvider implements IServiceProvider {
   }
 
   getService<T>(serviceType: ServiceIdentifier<T>): T {
-    const descriptor = this.descriptors.get(serviceType);
+    const descriptor = this._descriptors.get(serviceType);
     
     if (!descriptor) {
       throw new Error(`Service of type ${serviceType.toString()} is not registered.`);
@@ -53,12 +53,12 @@ export class ServiceProvider implements IServiceProvider {
   }
 
   createScope(): IServiceScope {
-    const scopedProvider = new ServiceProvider(this.descriptors, this);
+    const scopedProvider = new ServiceProvider(this._descriptors, this);
     return new ServiceScope(scopedProvider);
   }
 
   dispose(): void {
-    this.scopedInstances.clear();
+    this._scopedInstances.clear();
   }
 
   private resolveService<T>(descriptor: ServiceDescriptor<T>): T {
@@ -66,19 +66,19 @@ export class ServiceProvider implements IServiceProvider {
 
     switch (lifetime) {
       case 'singleton': {
-        if (this.singletonInstances.has(serviceType)) {
-          return this.singletonInstances.get(serviceType) as T;
+        if (this._singletonInstances.has(serviceType)) {
+          return this._singletonInstances.get(serviceType) as T;
         }
         const singletonInstance = factory ? factory(this) : this.createInstance(implementationType);
-        this.singletonInstances.set(serviceType, singletonInstance);
+        this._singletonInstances.set(serviceType, singletonInstance);
         return singletonInstance;
       }
       case 'scoped': {
-        if (this.scopedInstances.has(serviceType)) {
-          return this.scopedInstances.get(serviceType) as T;
+        if (this._scopedInstances.has(serviceType)) {
+          return this._scopedInstances.get(serviceType) as T;
         }
         const scopedInstance = factory ? factory(this) : this.createInstance(implementationType);
-        this.scopedInstances.set(serviceType, scopedInstance);
+        this._scopedInstances.set(serviceType, scopedInstance);
         return scopedInstance;
       }
       case 'transient':

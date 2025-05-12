@@ -1,11 +1,11 @@
-import { describe, expect, it, test } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { injectable, ServiceProvider } from '../src';
 import { createServiceIdentifier, ServiceLifetime } from '../src/types';
 import { randomUUID } from 'crypto';
 import { inject } from '../src';
 
 describe('ServiceProvider', () => {
-  it('it should throw an error when service is not registered', () => {
+  it('should throw an error when service is not registered', () => {
     type IService = object;
     const serviceIdentifier = createServiceIdentifier<IService>();
     const serviceProvider = new ServiceProvider(new Map());
@@ -15,7 +15,7 @@ describe('ServiceProvider', () => {
     }).toThrowError();
   });
 
-  it('it should resolve singleton service', () => {
+  it('should resolve singleton service', () => {
     type IService = object;
     const serviceIdentifier = createServiceIdentifier<IService>();
     const serviceProvider = new ServiceProvider(
@@ -37,7 +37,7 @@ describe('ServiceProvider', () => {
     expect(service1).toBe(service2);
   });
 
-  it('it should resolve singleton service using factory', () => {
+  it('should resolve singleton service using factory', () => {
     type IService = object;
     const serviceIdentifier = createServiceIdentifier<IService>();
     const serviceProvider = new ServiceProvider(
@@ -60,7 +60,7 @@ describe('ServiceProvider', () => {
     expect(service1).toBe(service2);
   });
 
-  it('it should resolve scoped service', () => {
+  it('should resolve scoped service', () => {
     type IService = object;
     const serviceIdentifier = createServiceIdentifier<IService>();
     const serviceProvider = new ServiceProvider(
@@ -85,7 +85,7 @@ describe('ServiceProvider', () => {
     expect(service1).not.toBe(service2);
   });
 
-  it('it should resolve scoped service using factory', () => {
+  it('should resolve scoped service using factory', () => {
     type IService = object;
     const serviceIdentifier = createServiceIdentifier<IService>();
     const serviceProvider = new ServiceProvider(
@@ -111,7 +111,7 @@ describe('ServiceProvider', () => {
     expect(service1).not.toBe(service2);
   });
 
-  it('it should resolve transient service', () => {
+  it('should resolve transient service', () => {
     type IService = object;
     const serviceIdentifier = createServiceIdentifier<IService>();
     const serviceProvider = new ServiceProvider(
@@ -133,7 +133,7 @@ describe('ServiceProvider', () => {
     expect(service1).not.toBe(service2);
   });
 
-  it('it should resolve transient service using factory', () => {
+  it('should resolve transient service using factory', () => {
     type IService = object;
     const serviceIdentifier = createServiceIdentifier<IService>();
     const serviceProvider = new ServiceProvider(
@@ -156,7 +156,7 @@ describe('ServiceProvider', () => {
     expect(service1).not.toBe(service2);
   });
 
-  it('it should resolve same singleton instance across scopes', () => {
+  it('should resolve same singleton instance across scopes', () => {
     type IService = {
       id: string;
     };
@@ -193,7 +193,7 @@ describe('ServiceProvider', () => {
     expect(service1.id).toBe(service2.id);
   });
 
-  it('it should resolve solve injected dependencies', () => {
+  it('should resolve solve injected dependencies', () => {
     interface IUserRepository {
       getUser(): string;
     }
@@ -253,7 +253,7 @@ describe('ServiceProvider', () => {
     expect(user).toBe('John Doe');
   });
 
-  test('it should throw an error when service has invalid lifetime', () => {
+  it('should throw an error when service has invalid lifetime', () => {
     type IService = object;
     
     const serviceIdentifier = createServiceIdentifier<IService>();
@@ -276,7 +276,7 @@ describe('ServiceProvider', () => {
     }).toThrowError();
   });
 
-  test('it should resolve same scoped instance in the same scope', () => {
+  it('should resolve same scoped instance in the same scope', () => {
     type IService = {
       id: string;
     };
@@ -312,7 +312,7 @@ describe('ServiceProvider', () => {
     expect(service1).toBe(service2);
   });
 
-  test('it should clear the scoped instances on dispose from provider', () => {
+  it('should clear the scoped instances on dispose from provider', () => {
     type IService = {
       id: string;
     };
@@ -349,7 +349,7 @@ describe('ServiceProvider', () => {
     expect(initialService).not.toBe(newService);
   });
 
-  test('it should clear the scoped instances on dispose from a scope', () => {
+  it('should clear the scoped instances on dispose from a scope', () => {
     type IService = {
       id: string;
     };
@@ -388,7 +388,7 @@ describe('ServiceProvider', () => {
     expect(initialService).not.toBe(newService);
   });
 
-  test('it should not clear the scoped instances on dispose from a scope when the provider is disposed', () => {
+  it('should not clear the scoped instances on dispose from a scope when the provider is disposed', () => {
     type IService = {
       id: string;
     };
@@ -427,7 +427,7 @@ describe('ServiceProvider', () => {
     expect(initialService).toBe(newService);
   });
 
-  test("it should not clear the scoped instances on dispose from another scope when one scope is disposed", () => {
+  it("should not clear the scoped instances on dispose from another scope when one scope is disposed", () => {
     type IService = {
       id: string;
     };
@@ -470,7 +470,7 @@ describe('ServiceProvider', () => {
     expect(initialService2).toBe(newService2);
   });
 
-  test('it should throw error when dependency is not registered', () => {
+  it('should throw error when dependency is not registered', () => {
     interface IUserRepository {
       getUser(): string;
     }
