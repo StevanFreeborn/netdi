@@ -14,11 +14,11 @@ export const DI_INJECTABLE = 'di:injectable';
 
 /**
  * Decorator for constructor parameters that specifies which service identifier to use for injection
- * 
+ *
  * @template T - The type of the service to be injected
  * @param serviceType - The service identifier for the dependency to inject
  * @returns A parameter decorator function that associates the parameter with the service identifier
- * 
+ *
  * @example
  * ```typescript
  * class MyService {
@@ -37,9 +37,9 @@ export function inject<T>(serviceType: ServiceIdentifier<T>): ParameterDecorator
 
 /**
  * Decorator that marks a class as injectable, allowing the container to create instances with dependencies
- * 
+ *
  * @returns A class decorator function that marks the class as injectable
- * 
+ *
  * @example
  * ```typescript
  * @injectable()

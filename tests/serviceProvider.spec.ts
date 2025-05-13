@@ -247,7 +247,7 @@ describe('ServiceProvider', () => {
     );
 
     const userService = serviceProvider.getService(userServiceIdentifier);
-    
+
     const user = userService.getUser();
 
     expect(user).toBe('John Doe');
@@ -255,9 +255,9 @@ describe('ServiceProvider', () => {
 
   it('should throw an error when service has invalid lifetime', () => {
     type IService = object;
-    
+
     const serviceIdentifier = createServiceIdentifier<IService>();
-    
+
     const serviceProvider = new ServiceProvider(
       new Map([
         [
@@ -341,9 +341,9 @@ describe('ServiceProvider', () => {
     );
 
     const initialService = serviceProvider.getService(serviceIdentifier);
-    
+
     serviceProvider.dispose();
-    
+
     const newService = serviceProvider.getService(serviceIdentifier);
 
     expect(initialService).not.toBe(newService);
@@ -380,9 +380,9 @@ describe('ServiceProvider', () => {
     const scope = serviceProvider.createScope();
 
     const initialService = scope.serviceProvider.getService(serviceIdentifier);
-    
+
     scope.dispose();
-    
+
     const newService = scope.serviceProvider.getService(serviceIdentifier);
 
     expect(initialService).not.toBe(newService);
@@ -419,15 +419,15 @@ describe('ServiceProvider', () => {
     const scope = serviceProvider.createScope();
 
     const initialService = scope.serviceProvider.getService(serviceIdentifier);
-    
+
     serviceProvider.dispose();
-    
+
     const newService = scope.serviceProvider.getService(serviceIdentifier);
 
     expect(initialService).toBe(newService);
   });
 
-  it("should not clear the scoped instances on dispose from another scope when one scope is disposed", () => {
+  it('should not clear the scoped instances on dispose from another scope when one scope is disposed', () => {
     type IService = {
       id: string;
     };
@@ -460,9 +460,9 @@ describe('ServiceProvider', () => {
 
     const initialService1 = scope1.serviceProvider.getService(serviceIdentifier);
     const initialService2 = scope2.serviceProvider.getService(serviceIdentifier);
-    
+
     scope1.dispose();
-    
+
     const newService1 = scope1.serviceProvider.getService(serviceIdentifier);
     const newService2 = scope2.serviceProvider.getService(serviceIdentifier);
 
@@ -501,7 +501,7 @@ describe('ServiceProvider', () => {
         ],
       ]),
     );
-    
+
     expect(() => {
       serviceProvider.getService(userServiceIdentifier);
     }).toThrowError();

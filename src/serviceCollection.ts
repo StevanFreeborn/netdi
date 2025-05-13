@@ -11,10 +11,10 @@ import type {
 
 /**
  * A collection of service descriptors that can be used to build a service provider.
- * 
+ *
  * This class is used to register services with different lifetimes and build a service provider
  * that can resolve those services at runtime.
- * 
+ *
  * @implements {IServiceCollection}
  */
 export class ServiceCollection implements IServiceCollection {
@@ -26,14 +26,14 @@ export class ServiceCollection implements IServiceCollection {
 
   /**
    * Registers a singleton service with the collection.
-   * 
+   *
    * Singleton services are created once and shared by all consumers.
-   * 
+   *
    * @template T - The type of the service to register
    * @param serviceType - The service identifier
    * @param implementationOrFactory - The implementation class or factory function
    * @returns The service collection instance for method chaining
-   * 
+   *
    * @example
    * ```typescript
    * services.addSingleton(userServiceIdentifier, UserService);
@@ -50,15 +50,15 @@ export class ServiceCollection implements IServiceCollection {
 
   /**
    * Registers a scoped service with the collection.
-   * 
+   *
    * Scoped services are created once per scope. This is useful for services that should be
    * shared within a request but not across requests.
-   * 
+   *
    * @template T - The type of the service to register
    * @param serviceType - The service identifier
    * @param implementationOrFactory - The implementation class or factory function
    * @returns The service collection instance for method chaining
-   * 
+   *
    * @example
    * ```typescript
    * services.addScoped(userServiceIdentifier, UserService);
@@ -75,14 +75,14 @@ export class ServiceCollection implements IServiceCollection {
 
   /**
    * Registers a transient service with the collection.
-   * 
+   *
    * Transient services are created each time they are requested.
-   * 
+   *
    * @template T - The type of the service to register
    * @param serviceType - The service identifier
    * @param implementationOrFactory - The implementation class or factory function
    * @returns The service collection instance for method chaining
-   * 
+   *
    * @example
    * ```typescript
    * services.addTransient(userServiceIdentifier, UserService);
@@ -99,7 +99,7 @@ export class ServiceCollection implements IServiceCollection {
 
   /**
    * Builds a service provider from the registered services.
-   * 
+   *
    * @returns A new service provider that can resolve the registered services
    */
   public build(): IServiceProvider {
@@ -108,7 +108,7 @@ export class ServiceCollection implements IServiceCollection {
 
   /**
    * Internal method to add a service descriptor to the collection.
-   * 
+   *
    * @template T - The type of the service to register
    * @param serviceType - The service identifier
    * @param implementationOrFactory - The implementation class or factory function
@@ -120,7 +120,10 @@ export class ServiceCollection implements IServiceCollection {
     implementationOrFactory: ServiceFactory<T> | Constructor<T>,
     lifetime: ServiceLifetime,
   ): IServiceCollection {
-    if (typeof implementationOrFactory === 'function' && this.isConstructor(implementationOrFactory) === false) {
+    if (
+      typeof implementationOrFactory === 'function' &&
+      this.isConstructor(implementationOrFactory) === false
+    ) {
       const descriptor: ServiceDescriptor<T> = {
         serviceType,
         implementationType: Object as unknown as Constructor<T>,
@@ -144,13 +147,11 @@ export class ServiceCollection implements IServiceCollection {
 
   /**
    * Checks if a function is a constructor
-   * 
+   *
    * @param func - The function to check
    * @returns True if the function is a constructor, false otherwise
    */
   private isConstructor(func: unknown): func is Constructor<unknown> {
-    return typeof func === 'function' &&
-      !!func.prototype &&
-      func.prototype.constructor === func;
+    return typeof func === 'function' && !!func.prototype && func.prototype.constructor === func;
   }
 }

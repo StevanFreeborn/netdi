@@ -9,9 +9,9 @@ import type {
 
 /**
  * Represents a scope for scoped services.
- * 
+ *
  * A service scope provides access to scoped services that are created once per scope.
- * 
+ *
  * @implements {IServiceScope}
  */
 export class ServiceScope implements IServiceScope {
@@ -22,7 +22,7 @@ export class ServiceScope implements IServiceScope {
 
   /**
    * Creates a new service scope
-   * 
+   *
    * @param serviceProvider - The service provider for this scope
    */
   constructor(serviceProvider: IServiceProvider) {
@@ -39,10 +39,10 @@ export class ServiceScope implements IServiceScope {
 
 /**
  * A provider that can resolve registered services by their service identifier.
- * 
+ *
  * The service provider is responsible for creating and managing service instances
  * according to their registered lifetime.
- * 
+ *
  * @implements {IServiceProvider}
  */
 export class ServiceProvider implements IServiceProvider {
@@ -50,12 +50,12 @@ export class ServiceProvider implements IServiceProvider {
    * Map of service descriptors by service identifier
    */
   private readonly _descriptors: Map<ServiceIdentifier<unknown>, ServiceDescriptor<unknown>>;
-  
+
   /**
    * Map of singleton service instances by service identifier
    */
   private readonly _singletonInstances: Map<ServiceIdentifier<unknown>, unknown> = new Map();
-  
+
   /**
    * Map of scoped service instances by service identifier
    */
@@ -63,7 +63,7 @@ export class ServiceProvider implements IServiceProvider {
 
   /**
    * Creates a new service provider
-   * 
+   *
    * @param descriptors - Map of service descriptors
    * @param parent - Optional parent service provider to inherit singleton instances from
    */
@@ -89,12 +89,12 @@ export class ServiceProvider implements IServiceProvider {
 
   /**
    * Gets a service instance by its service identifier
-   * 
+   *
    * @template T - The type of the service to resolve
    * @param serviceType - The service identifier of the service to resolve
    * @returns The resolved service instance
    * @throws Error if the service is not registered
-   * 
+   *
    * @example
    * ```typescript
    * const userService = serviceProvider.getService(userServiceIdentifier);
@@ -102,7 +102,7 @@ export class ServiceProvider implements IServiceProvider {
    */
   getService<T>(serviceType: ServiceIdentifier<T>): T {
     const descriptor = this._descriptors.get(serviceType);
-    
+
     if (!descriptor) {
       throw new Error(`Service of type ${serviceType.toString()} is not registered.`);
     }
@@ -112,9 +112,9 @@ export class ServiceProvider implements IServiceProvider {
 
   /**
    * Creates a new scope for scoped services
-   * 
+   *
    * @returns A new service scope
-   * 
+   *
    * @example
    * ```typescript
    * const scope = serviceProvider.createScope();
@@ -137,7 +137,7 @@ export class ServiceProvider implements IServiceProvider {
 
   /**
    * Resolves a service instance from its descriptor
-   * 
+   *
    * @template T - The type of the service to resolve
    * @param descriptor - The service descriptor
    * @returns The resolved service instance
@@ -172,7 +172,7 @@ export class ServiceProvider implements IServiceProvider {
 
   /**
    * Creates an instance of a service class and resolves its dependencies
-   * 
+   *
    * @template T - The type of the service to create
    * @param ctor - The constructor of the service class
    * @returns A new instance of the service class with its dependencies resolved
