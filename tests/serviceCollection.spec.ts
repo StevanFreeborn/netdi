@@ -94,4 +94,30 @@ describe('ServiceCollection', () => {
     
     expect(serviceInstance1).not.toBe(serviceInstance2);
   });
+
+  it('should add a service with a factory and dependencies', () => {
+    type IDependencyService = object
+    class DependencyService implements IDependencyService {}
+
+    type ITestService = {
+      dependency: IDependencyService;
+    }
+    class TestService implements ITestService {
+      constructor(public dependency: DependencyService) {}
+    }
+
+    const testServiceIdentifier = createServiceIdentifier<ITestService>();
+    const dependencyServiceIdentifier = createServiceIdentifier<IDependencyService>();
+
+    const collection = new ServiceCollection();
+    collection.addSingleton(dependencyServiceIdentifier, DependencyService);
+    collection.addSingleton(testServiceIdentifier, (provider) => new TestService(provider.getService(dependencyServiceIdentifier)));
+    
+    const provider = collection.build();
+    const serviceInstance1 = provider.getService(testServiceIdentifier);
+    const serviceInstance2 = provider.getService(testServiceIdentifier);
+    
+    expect(serviceInstance1).toBe(serviceInstance2);
+    expect(serviceInstance1.dependency).toBe(serviceInstance2.dependency);
+  });
 });
