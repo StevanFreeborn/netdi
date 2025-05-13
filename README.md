@@ -52,11 +52,11 @@ Add the following to your `tsconfig.json`:
 Here's a simple example of how to use netdi:
 
 ```typescript
-import { 
-  ServiceCollection, 
-  createServiceIdentifier, 
-  injectable, 
-  inject 
+import {
+  ServiceCollection,
+  createServiceIdentifier,
+  injectable,
+  inject,
 } from '@stevanfreeborn/netdi';
 
 // Define interfaces
@@ -82,9 +82,7 @@ class GreetingService implements IGreetingService {
 
 @injectable()
 class Greeter implements IGreeter {
-  constructor(
-    @inject(greetingServiceIdentifier) private greetingService: IGreetingService
-  ) {}
+  constructor(@inject(greetingServiceIdentifier) private greetingService: IGreetingService) {}
 
   greet(name: string): string {
     return this.greetingService.createGreeting(name);
@@ -146,14 +144,14 @@ services.addTransient(serviceIdentifier, Implementation);
 For complex service instantiation, you can use factory methods:
 
 ```typescript
-services.addSingleton(serviceIdentifier, (provider) => {
+services.addSingleton(serviceIdentifier, provider => {
   // Use the provider to get dependencies
   const dependency = provider.getService(dependencyIdentifier);
-  
+
   // Create and configure your service instance
   const instance = new MyService(dependency);
   instance.configure();
-  
+
   return instance;
 });
 ```
@@ -192,7 +190,7 @@ Specifies a dependency for a parameter:
 class MyService {
   constructor(
     @inject(loggerIdentifier) private logger: ILogger,
-    @inject(configIdentifier) private config: IConfig
+    @inject(configIdentifier) private config: IConfig,
   ) {}
 }
 ```

@@ -23,7 +23,7 @@ jobs:
       - name: Build
         run: npm run build
       - name: Publish
-        env: 
+        env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.ACTIONS_PAT }}
         run: npx semantic-release
