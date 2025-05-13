@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc --project tsconfig.build.json",
     "test": "vitest",
-    "test:ci": "vitest --run",
+    "test:ci": "vitest --run --coverage",
     "test:coverage": "vitest --coverage",
     "test:ui": "vitest --ui --api 9527",
     "lint": "eslint . --ext .ts",
@@ -16,6 +16,9 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   },
   "files": [
     "dist",
@@ -37,7 +40,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/StevanFreeborn/netdi.git"
+    "url": "https://github.com/StevanFreeborn/netdi.git"
   },
   "homepage": "https://github.com/StevanFreeborn/netdi",
   "bugs": {
