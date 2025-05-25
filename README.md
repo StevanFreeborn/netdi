@@ -1,7 +1,5 @@
 # netdi
 
-A dependency injection container for [TypeScript](https://www.typescriptlang.org/) projects that is inspired by the [.NET](https://dotnet.microsoft.com/en-us/) DI container. It is designed to be simple, lightweight, and easy to use.
-
 [![pull_request](https://github.com/StevanFreeborn/netdi/actions/workflows/pull_request.yml/badge.svg)](https://github.com/StevanFreeborn/netdi/actions/workflows/pull_request.yml)
 [![codecov](https://codecov.io/gh/StevanFreeborn/netdi/graph/badge.svg?token=nJqAIPyWYh)](https://codecov.io/gh/StevanFreeborn/netdi)
 [![publish](https://github.com/StevanFreeborn/netdi/actions/workflows/publish.yml/badge.svg)](https://github.com/StevanFreeborn/netdi/actions/workflows/publish.yml)
@@ -9,6 +7,8 @@ A dependency injection container for [TypeScript](https://www.typescriptlang.org
 ![NPM License](https://img.shields.io/npm/l/%40stevanfreeborn%2Fnetdi)
 ![NPM Version](https://img.shields.io/npm/v/%40stevanfreeborn%2Fnetdi)
 ![NPM Downloads](https://img.shields.io/npm/dt/%40stevanfreeborn%2Fnetdi)
+
+A dependency injection container for [TypeScript](https://www.typescriptlang.org/) projects that is inspired by the [.NET](https://dotnet.microsoft.com/en-us/) DI container. It is designed to be simple, lightweight, and easy to use.
 
 ## Features
 
